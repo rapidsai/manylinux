@@ -169,6 +169,10 @@ COPY build_scripts/finalize.sh \
 COPY build_scripts/requirements-tools/* /build_scripts/requirements-tools/
 RUN manylinux-entrypoint /build_scripts/finalize.sh && rm -rf /build_scripts
 
+COPY 1337-manylinux.conf /etc/ld.so.conf.d/
+COPY build_scripts/install-rapids-tools.sh /build_scripts/
+RUN manylinux-entrypoint /build_scripts/install-rapids-tools.sh
+
 ENV SSL_CERT_FILE=/opt/_internal/certs.pem
 
 CMD ["/bin/bash"]

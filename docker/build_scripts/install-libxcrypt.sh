@@ -13,8 +13,8 @@ source $MY_DIR/build_utils.sh
 if [ "$BASE_POLICY" == "musllinux" ]; then
 	echo "Skip libxcrypt installation on musllinux"
 	exit 0
-elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_28" ]; then
-	echo "Skip libxcrypt installation on manylinux_2_28"
+elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_28" ] || [ "${AUDITWHEEL_POLICY}" == "manylinux_2_31" ]; then
+	echo "Skip libxcrypt installation on manylinux_{2_28,2_31}"
 	exit 0
 fi
 

@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - "manylinux*cuda"
-    paths:
-      - 'build.sh'
-      - 'docker/**'
-      - '.github/workflows/*.yml'
 
 jobs:
   build-images:

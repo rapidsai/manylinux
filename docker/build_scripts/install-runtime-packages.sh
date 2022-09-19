@@ -37,7 +37,7 @@ if [ "${AUDITWHEEL_POLICY}" == "manylinux2014" ] || [ "${AUDITWHEEL_POLICY}" == 
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_24" ]; then
 	MANYLINUX_DEPS="libc6-dev libstdc++-6-dev libglib2.0-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libice-dev libsm-dev libz-dev libexpat1-dev"
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ]; then
-	MANYLINUX_DEPS="libc6-dev libstdc++-9-dev libglib2.0-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libice-dev libsm-dev libz-dev libexpat1-dev"
+	MANYLINUX_DEPS="libc6-dev libstdc++-8-dev libglib2.0-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libice-dev libsm-dev libz-dev libexpat1-dev"
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_31" ]; then
 	MANYLINUX_DEPS="libc6-dev libstdc++-9-dev libglib2.0-dev libx11-dev libxext-dev libxrender-dev libgl1-mesa-dev libice-dev libsm-dev libz-dev libexpat1-dev"
 elif [ "${AUDITWHEEL_POLICY}" == "musllinux_1_1" ]; then
@@ -56,7 +56,7 @@ if [ "${AUDITWHEEL_POLICY}" == "manylinux2014" ] || [ "${AUDITWHEEL_POLICY}" == 
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_24" ]; then
 	RUNTIME_DEPS="zlib1g libbz2-1.0 libexpat1 libncurses5 libreadline7 tk libgdbm3 libdb5.3 libpcap0.8 liblzma5 libssl1.1 libkeyutils1 libkrb5-3 libcomerr2 libidn2-0 libcurl3 uuid libffi6"
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ]; then
-	RUNTIME_DEPS="zlib1g libbz2-1.0 libexpat1 libncurses5 libreadline8 tk libgdbm6 libdb5.3 libpcap0.8 liblzma5 libssl1.1 libkeyutils1 libkrb5-3 libcomerr2 libidn2-0 libcurl4 uuid libffi7"
+	RUNTIME_DEPS="zlib1g libbz2-1.0 libexpat1 libncurses5 libreadline7 tk libgdbm5 libdb5.3 libpcap0.8 liblzma5 libssl1.1 libkeyutils1 libkrb5-3 libcomerr2 libidn2-0 libcurl4 uuid libffi6"
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_31" ]; then
 	RUNTIME_DEPS="zlib1g libbz2-1.0 libexpat1 libncurses5 libreadline8 tk libgdbm6 libdb5.3 libpcap0.8 liblzma5 libssl1.1 libkeyutils1 libkrb5-3 libcomerr2 libidn2-0 libcurl4 uuid libffi7"
 elif [ "${AUDITWHEEL_POLICY}" == "musllinux_1_1" ]; then

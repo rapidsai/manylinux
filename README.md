@@ -21,3 +21,9 @@ Broader compatiblity
 ## manylinux2014 based on Centos 7
 
 x86-only
+
+## build locally
+
+```
+COMMIT_SHA="latest" PLATFORM="x86_64" POLICY="manylinux_2_27" BASEIMAGE_OVERRIDE="nvidia/cuda:11.5.1-devel-ubuntu18.04" ./build.sh
+```

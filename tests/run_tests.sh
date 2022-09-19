@@ -8,7 +8,7 @@ MY_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 if [ "${AUDITWHEEL_POLICY}" == "manylinux2014" ]; then
 	PACKAGE_MANAGER=yum
-elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_24" ]; then
+elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_24" ] || [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ] || [ "${AUDITWHEEL_POLICY}" == "manylinux_2_31" ]; then
 	export DEBIAN_FRONTEND=noninteractive
 	PACKAGE_MANAGER=apt
 	apt-get update -qq

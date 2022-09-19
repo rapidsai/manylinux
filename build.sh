@@ -10,6 +10,7 @@ fi
 # Export variable needed by 'docker build --build-arg'
 export POLICY
 export PLATFORM
+export BASEIMAGE_OVERRIDE
 
 # get docker default multiarch image prefix for PLATFORM
 if [ "${PLATFORM}" == "x86_64" ]; then
@@ -60,6 +61,11 @@ else
 	echo "Unsupported policy: '${POLICY}'"
 	exit 1
 fi
+
+if [ -n "${BASEIMAGE_OVERRIDE}" ]; then
+    BASEIMAGE="${BASEIMAGE_OVERRIDE}"
+fi
+
 export BASEIMAGE
 export DEVTOOLSET_ROOTPATH
 export PREPEND_PATH

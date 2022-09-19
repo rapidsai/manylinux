@@ -1,0 +1,15 @@
+name: RAPIDS manylinux ci
+
+on:
+  pull_request:
+    paths:
+      - 'build.sh'
+      - 'docker/**'
+      - '.github/workflows/*.yml'
+
+jobs:
+  build-images:
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      push: false
+    secrets: inherit

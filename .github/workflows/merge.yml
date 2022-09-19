@@ -1,0 +1,17 @@
+name: RAPIDS manylinux release
+
+on:
+  push:
+    branches:
+      - "manylinux*cuda"
+    paths:
+      - 'build.sh'
+      - 'docker/**'
+      - '.github/workflows/*.yml'
+
+jobs:
+  build-images:
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      push: true
+    secrets: inherit

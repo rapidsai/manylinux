@@ -94,10 +94,24 @@ fi
 if [ "${MANYLINUX_BUILD_FRONTEND}" == "docker" ]; then
 	docker build ${BUILD_ARGS_COMMON}
 elif [ "${MANYLINUX_BUILD_FRONTEND}" == "docker-buildx" ]; then
+	EXTRA_BUILDX_ARGS=""
+	if [[ -n "${LOCAL_BUILD-}" ]]; then
+		trap "docker buildx rm manylinux-builder" EXIT
+		# create multi-platform qemu builder instance
+		if [[ "$PLATFORM" == aarch64 ]]; then
+			docker run --privileged --rm tonistiigi/binfmt --install arm64
+		fi
+		docker buildx create --use --name manylinux-builder --driver docker-container
+		EXTRA_BUILDX_ARGS+="
+		--progress plain
+		--builder manylinux-builder
+		--platform linux/$(echo ${MULTIARCH_PREFIX/v8/} | cut -d'/' -f1)"
+	fi
 	docker buildx build \
 		--load \
 		--cache-from=type=local,src=$(pwd)/.buildx-cache-${POLICY}_${PLATFORM} \
 		--cache-to=type=local,dest=$(pwd)/.buildx-cache-staging-${POLICY}_${PLATFORM} \
+                ${EXTRA_BUILDX_ARGS} \
 		${BUILD_ARGS_COMMON}
 elif [ "${MANYLINUX_BUILD_FRONTEND}" == "buildkit" ]; then
 	buildctl build \

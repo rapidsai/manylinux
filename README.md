@@ -2,28 +2,30 @@
 
 RAPIDS manylinux CUDA images for cibuildwheel in GitHub Actions.
 
-## manylinux_2_31 based on ubuntu 20.04
+| Image | CUDA base | OS | GCC | GLIBC |
+|-------|---------|---|-|-|
+| [rapidsai/manylinux_2_31_x86_64](https://hub.docker.com/r/rapidsai/manylinux_2_31_x86_64)<br>[rapidsai/manylinux_2_31_aarch64](https://hub.docker.com/r/rapidsai/manylinux_2_31_aarch64) | nvidia/cuda:11.5.1-devel-ubuntu20.04 | Ubuntu 20.04 | 9.4.0 | 2.31 |
+| [rapidsai/manylinux_2_27_x86_64](https://hub.docker.com/r/rapidsai/manylinux_2_27_x86_64)<br>[rapidsai/manylinux_2_27_aarch64](https://hub.docker.com/r/rapidsai/manylinux_2_27_aarch64) | nvidia/cuda:11.5.1-devel-ubuntu18.04 | Ubuntu 18.04 | 8.4.0 | 2.27 |
+| [rapidsai/manylinux2014_x86_64](https://hub.docker.com/r/rapidsai/manylinux2014_x86_64) | nvidia/cuda:11.5.1-devel-centos7 | CentOS 7 | 10.2.1 | 2.17 |
 
-The upstream [pypa/manylinux](https://github.com/pypa/manylinux) project hosts their containers on their [quay.io organization page](https://quay.io/organization/pypa). The latest official pypa/manylinux container is manylinux_2_28, based on AlmaLinux 8.
+The containers are built and published with the following [GitHub Action workflow](.github/workflows/build-and-publish.yml). They can also be built locally, using similar parameters from the workflow file:
 
-For RAPIDS projects, the AlmaLinux development environment proved challenging, lacking many development libraries compared to Ubuntu 20.04.
-
-As a result, we added a new manylinux_2_31 platform based on Ubuntu 20.04:
-* Ubuntu 20.04 is already proven capable of building RAPIDS projects in other CI environments
-* Ubuntu 20.04 is an acceptable distro for a future official manylinux_2_31 image, as hinted at in the [pep600_compliance](https://github.com/mayeut/pep600_compliance) repo
-
-The RAPIDS manylinux_2_31 container uses the nvidia/cuda-devel-ubuntu20.04 container as a base and adds some common dependencies such as the CUDA Toolkit, NCCL, and UCX.
-
-## manylinux_2_27 based on ubuntu 18.04
-
-Broader compatiblity
-
-## manylinux2014 based on Centos 7
-
-x86-only
-
-## build locally
-
+Example for manylinux_2_27_x86_64:
 ```
-COMMIT_SHA="latest" PLATFORM="x86_64" POLICY="manylinux_2_27" BASEIMAGE_OVERRIDE="nvidia/cuda:11.5.1-devel-ubuntu18.04" ./build.sh
+LOCAL_BUILD=true \
+    COMMIT_SHA="latest" \
+    PLATFORM="x86_64" \
+    POLICY="manylinux_2_27" \
+    BASEIMAGE_OVERRIDE="nvidia/cuda:11.5.1-devel-ubuntu18.04" \
+    ./build.sh
+```
+
+Example for manylinux_2_31_aarch64:
+```
+LOCAL_BUILD=true \
+    COMMIT_SHA="latest" \
+    PLATFORM="aarch64" \
+    POLICY="manylinux_2_31" \
+    BASEIMAGE_OVERRIDE="nvidia/cuda:11.5.1-devel-ubuntu20.04" \
+    ./build.sh
 ```

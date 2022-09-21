@@ -19,6 +19,7 @@ fi
 
 if [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ] ; then
     # make gcc 8 default in ubuntu 18.04
+    apt-get install -y gcc-8 g++-8
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 fi
 

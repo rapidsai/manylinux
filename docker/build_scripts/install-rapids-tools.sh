@@ -7,10 +7,6 @@ if which yum; then
   yum update ; yum install -y \
       curl \
       wget \
-      numactl \
-      numactl-devel \
-      librdmacm-devel \
-      libibverbs-devel \
       openssh-clients \
       libcudnn8-devel
 else
@@ -38,8 +34,8 @@ curl -o /tmp/sccache.tar.gz \
         mv "/tmp/sccache-v${SCCACHE_VERSION}-${AUDITWHEEL_ARCH}-unknown-linux-musl/sccache" /usr/bin/sccache ;\
         chmod +x /usr/bin/sccache
 
-# skip ucx install on ubuntu 18.04
-if [ "${AUDITWHEEL_POLICY}" != "manylinux_2_27" ] ; then
+# ucx can only be compiled on ubuntu 20.04
+if [ "${AUDITWHEEL_POLICY}" == "manylinux_2_31" ] ; then
     export UCX_VERSION=1.13.0
     mkdir -p /ucx-src /usr ; cd /ucx-src \
      ; git clone https://github.com/openucx/ucx -b v${UCX_VERSION} ucx-git-repo ; cd ucx-git-repo \

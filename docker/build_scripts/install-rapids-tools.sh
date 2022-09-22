@@ -50,5 +50,5 @@ mkdir -p /ucx-src /usr && cd /ucx-src \
  && cd /usr \
  && rm -rf /ucx-src/
 
-# Install gha-tools v0.0.02
-wget https://github.com/rapidsai/gha-tools/releases/download/v0.0.2/tools.tar.gz -O - | tar -xz -C /usr/local/bin
+# Install latest gha-tools
+wget https://github.com/rapidsai/gha-tools/releases/latest/download/tools.tar.gz -O - | tar -xz -C /usr/local/bin

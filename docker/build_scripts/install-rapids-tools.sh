@@ -4,7 +4,15 @@
 set -Eexuo pipefail
 
 if which yum; then
-  yum install -y wget
+  yum update ; yum install -y \
+      curl \
+      wget \
+      numactl \
+      numactl-devel \
+      librdmacm-devel \
+      libibverbs-devel \
+      openssh-clients \
+      libcudnn8-devel
 else
   apt update ; apt install -y --no-install-recommends \
       curl \

@@ -30,25 +30,28 @@ curl -o /tmp/sccache.tar.gz \
         mv "/tmp/sccache-v${SCCACHE_VERSION}-${AUDITWHEEL_ARCH}-unknown-linux-musl/sccache" /usr/bin/sccache ;\
         chmod +x /usr/bin/sccache
 
-export UCX_VERSION=1.13.0
-mkdir -p /ucx-src /usr ; cd /ucx-src \
- ; git clone https://github.com/openucx/ucx -b v${UCX_VERSION} ucx-git-repo ; cd ucx-git-repo \
- ; ./autogen.sh \
- ; ./contrib/configure-release \
-    --prefix=/usr               \
-    --enable-mt                 \
-    --enable-cma                \
-    --enable-numa               \
-    --with-verbs                \
-    --with-rdmacm               \
-    --with-gnu-ld               \
-    --with-sysroot              \
-    --with-cuda=/usr/local/cuda \
-    CPPFLAGS=-I/usr/local/cuda/include \
- ; make -j \
- ; make install \
- ; cd /usr \
- ; rm -rf /ucx-src/
+# skip ucx install on ubuntu 18.04
+if [ "${AUDITWHEEL_POLICY}" != "manylinux_2_27" ] ; then
+    export UCX_VERSION=1.13.0
+    mkdir -p /ucx-src /usr ; cd /ucx-src \
+     ; git clone https://github.com/openucx/ucx -b v${UCX_VERSION} ucx-git-repo ; cd ucx-git-repo \
+     ; ./autogen.sh \
+     ; ./contrib/configure-release \
+        --prefix=/usr               \
+        --enable-mt                 \
+        --enable-cma                \
+        --enable-numa               \
+        --with-verbs                \
+        --with-rdmacm               \
+        --with-gnu-ld               \
+        --with-sysroot              \
+        --with-cuda=/usr/local/cuda \
+        CPPFLAGS=-I/usr/local/cuda/include \
+     ; make -j \
+     ; make install \
+     ; cd /usr \
+     ; rm -rf /ucx-src/
+fi
 
 # Install latest gha-tools
 wget https://github.com/rapidsai/gha-tools/releases/latest/download/tools.tar.gz -O - | tar -xz -C /usr/local/bin

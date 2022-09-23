@@ -21,10 +21,12 @@ else
       libcudnn8-dev
 fi
 
+# backported gcc-9 in 18.04
 if [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ] ; then
-    # make gcc 8 default in ubuntu 18.04
-    apt-get install -y gcc-8 g++-8
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+    apt-get install -y software-properties-common &&\
+        add-apt-repository ppa:jonathonf/gcc &&\
+        apt-get update && apt-get install -y gcc-9 g++-9 &&\
+        update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 900 --slave /usr/bin/g++ g++ /usr/bin/g++-9
 fi
 
 export SCCACHE_VERSION=0.2.15

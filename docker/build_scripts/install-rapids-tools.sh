@@ -47,6 +47,8 @@ mkdir -p /ucx-src /usr ; cd /ucx-src \
     --enable-numa               \
     --with-gnu-ld               \
     --with-sysroot              \
+    --without-verbs             \
+    --without-rdmacm            \
     --with-cuda=/usr/local/cuda \
     CPPFLAGS=-I/usr/local/cuda/include \
  ; make -j \

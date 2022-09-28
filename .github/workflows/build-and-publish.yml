@@ -9,7 +9,7 @@ on:
 
 jobs:
   docker-manylinux:
-    name: ${{ matrix.policy }} ${{ matrix.labels[2] }}
+    name: ${{ matrix.base-image }} ${{ matrix.policy }} ${{ matrix.labels[2] }}
     runs-on: ${{ matrix.labels }}
     strategy:
       matrix:

@@ -45,19 +45,19 @@ jobs:
             cpu-arch: x86_64
             policy: manylinux2014
             base-image: nvidia/cuda:11.7.1-devel-centos7
-            image-extra-suffix: "_117"
+            image-extra-tag: "_117"
 
           - labels: [self-hosted, linux, amd64, cpu4]
             cpu-arch: x86_64
             policy: manylinux_2_31
             base-image: nvidia/cuda:11.7.1-devel-ubuntu20.04
-            image-extra-suffix: "_117"
+            image-extra-tag: "_117"
 
           - labels: [self-hosted, linux, arm64, cpu4]
             cpu-arch: aarch64
             policy: manylinux_2_31
             base-image: nvidia/cuda:11.7.1-devel-ubuntu20.04
-            image-extra-suffix: "_117"
+            image-extra-tag: "_117"
 
     env:
       DOCKERHUB_USERNAME: ${{ secrets.GPUCIBOT_DOCKERHUB_USER }}
@@ -94,7 +94,7 @@ jobs:
           BASEIMAGE_OVERRIDE="${{ matrix.base-image }}"
           ./build.sh
       - name: Re-tag as rapidsai/${{ matrix.policy }} containers
-        run: docker tag quay.io/pypa/${{ matrix.policy }}_${{ matrix.cpu-arch }} rapidsai/${{ matrix.policy }}_${{ matrix.cpu-arch }}${{ matrix.image-extra-suffix }}
+        run: docker tag quay.io/pypa/${{ matrix.policy }}_${{ matrix.cpu-arch }} rapidsai/${{ matrix.policy }}${{ matrix.image-extra-tag }}_${{ matrix.cpu-arch }}
       - name: Push rapidsai/manylinux containers to DockerHub
         if: ${{ inputs.push }}
-        run: docker push rapidsai/${{ matrix.policy }}_${{ matrix.cpu-arch }}${{ matrix.image-extra-suffix }}
+        run: docker push rapidsai/${{ matrix.policy }}${{ matrix.image-extra-tag }}_${{ matrix.cpu-arch }}

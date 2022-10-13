@@ -10,7 +10,11 @@ if which yum; then
       numactl \
       numactl-devel \
       openssh-clients \
-      libcudnn8-devel
+      libcudnn8-devel \
+      zip \
+      blas-devel \
+      lapack-devel \
+      protobuf-compiler
 else
   apt update ; apt install -y --no-install-recommends \
       curl \
@@ -18,7 +22,11 @@ else
       numactl \
       libnuma-dev \
       openssh-client \
-      libcudnn8-dev
+      libcudnn8-dev \
+      zip \
+      libblas-dev \
+      liblapack-dev \
+      protobuf-compiler
 fi
 
 # backported gcc-9 in 18.04

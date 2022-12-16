@@ -17,6 +17,10 @@ LABEL maintainer="The ManyLinux project"
 ENV AUDITWHEEL_POLICY=${POLICY} AUDITWHEEL_ARCH=${PLATFORM} AUDITWHEEL_PLAT=${POLICY}_${PLATFORM}
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 ENV DEVTOOLSET_ROOTPATH=${DEVTOOLSET_ROOTPATH}
+
+# first save the old LD_LIBRARY_PATH, whose original value may be important e.g. in a cuda container
+ENV LD_LIBRARY_PATH_OLD=${LD_LIBRARY_PATH}
+
 ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH_ARG}
 ENV PATH=${PREPEND_PATH}${PATH}
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
@@ -169,6 +173,13 @@ COPY build_scripts/finalize.sh \
 COPY build_scripts/requirements-tools/* /build_scripts/requirements-tools/
 RUN manylinux-entrypoint /build_scripts/finalize.sh && rm -rf /build_scripts
 
+COPY 1337-manylinux.conf /etc/ld.so.conf.d/
+COPY build_scripts/install-rapids-tools.sh /build_scripts/
+RUN manylinux-entrypoint /build_scripts/install-rapids-tools.sh
+
 ENV SSL_CERT_FILE=/opt/_internal/certs.pem
+
+# restore LD_LIBRARY_PATH back to the cuda one
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH_OLD}
 
 CMD ["/bin/bash"]

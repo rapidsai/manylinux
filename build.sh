@@ -10,6 +10,7 @@ fi
 # Export variable needed by 'docker build --build-arg'
 export POLICY
 export PLATFORM
+export BASEIMAGE_OVERRIDE
 
 # get docker default multiarch image prefix for PLATFORM
 if [ "${PLATFORM}" == "x86_64" ]; then
@@ -46,6 +47,10 @@ elif [ "${POLICY}" == "manylinux_2_28" ]; then
 	DEVTOOLSET_ROOTPATH="/opt/rh/gcc-toolset-12/root"
 	PREPEND_PATH="${DEVTOOLSET_ROOTPATH}/usr/bin:"
 	LD_LIBRARY_PATH_ARG="${DEVTOOLSET_ROOTPATH}/usr/lib64:${DEVTOOLSET_ROOTPATH}/usr/lib:${DEVTOOLSET_ROOTPATH}/usr/lib64/dyninst:${DEVTOOLSET_ROOTPATH}/usr/lib/dyninst"
+elif [ "${POLICY}" == "manylinux_2_27" ] || [ "${POLICY}" == "manylinux_2_31" ]; then
+	DEVTOOLSET_ROOTPATH=
+	PREPEND_PATH=
+	LD_LIBRARY_PATH_ARG=
 elif [ "${POLICY}" == "musllinux_1_1" ]; then
 	BASEIMAGE="${MULTIARCH_PREFIX}alpine:3.12"
 	DEVTOOLSET_ROOTPATH=
@@ -55,6 +60,11 @@ else
 	echo "Unsupported policy: '${POLICY}'"
 	exit 1
 fi
+
+if [ -n "${BASEIMAGE_OVERRIDE}" ]; then
+    BASEIMAGE="${BASEIMAGE_OVERRIDE}"
+fi
+
 export BASEIMAGE
 export DEVTOOLSET_ROOTPATH
 export PREPEND_PATH

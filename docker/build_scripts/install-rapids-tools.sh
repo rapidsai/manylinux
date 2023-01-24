@@ -70,5 +70,5 @@ wget https://github.com/rapidsai/gha-tools/releases/latest/download/tools.tar.gz
 # Remove libnccl-cuda12.0 which UNAVOIDABLY gets installed
 if which yum; then
         yum remove -y libnccl libnccl-devel
-        yum install -y libnccl-2.11.4-1+cuda11.5 libnccl-devel-2.11.4-1+cuda11.5
+        yum install -y libnccl-2.16.2-1+cuda11.8 libnccl-devel-2.16.2-1+cuda11.8
 fi

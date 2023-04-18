@@ -38,7 +38,7 @@ elif [ "${PACKAGE_MANAGER}" == "dnf" ]; then
  	dnf -y install --allowerasing ${COMPILE_DEPS}
  	dnf clean all
  	rm -rf /var/cache/yum
-if [ "${PACKAGE_MANAGER}" == "apt" ]; then
+elif [ "${PACKAGE_MANAGER}" == "apt" ]; then
 	apt-get -y install ${COMPILE_DEPS}
 	apt-get clean autoclean
 else

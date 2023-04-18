@@ -137,6 +137,8 @@ elif [ "${PACKAGE_MANAGER}" == "apk" ]; then
 	apk add --no-cache ${BASETOOLS} ${TOOLCHAIN_DEPS} ${MANYLINUX_DEPS} ${RUNTIME_DEPS}
 elif [ "${PACKAGE_MANAGER}" == "dnf" ]; then
 	dnf -y install --allowerasing ${BASETOOLS} ${TOOLCHAIN_DEPS} ${MANYLINUX_DEPS} ${RUNTIME_DEPS}
+elif [ "${PACKAGE_MANAGER}" == "apt" ]; then
+	apt-get -y install ${BASETOOLS} ${TOOLCHAIN_DEPS} ${MANYLINUX_DEPS} ${RUNTIME_DEPS}
 else
 	echo "Not implemented"
 	exit 1

@@ -70,6 +70,8 @@ elif [ "${PACKAGE_MANAGER}" == "apk" ]; then
 	apk add --no-cache openssh-client
 elif [ "${PACKAGE_MANAGER}" == "dnf" ]; then
 	dnf -y install --allowerasing openssh-clients
+elif [ "${PACKAGE_MANAGER}" == "apt" ]; then
+	apt-get -y install openssh-client
 else
 	echo "Unsupported package manager: '${PACKAGE_MANAGER}'"
 	exit 1

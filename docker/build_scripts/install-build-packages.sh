@@ -18,6 +18,8 @@ if [ "${AUDITWHEEL_POLICY}" == "manylinux2014" ] || [ "${AUDITWHEEL_POLICY}" == 
 	fi
 elif [ "${AUDITWHEEL_POLICY}" == "manylinux_2_24" ] || [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ] || [ "${AUDITWHEEL_POLICY}" == "manylinux_2_31" ]; then
 	PACKAGE_MANAGER=apt
+        apt-get update -qq
+        apt-get upgrade -qq -y
 	COMPILE_DEPS="libbz2-dev libncurses5-dev libreadline-dev tk-dev libgdbm-dev libdb-dev libpcap-dev liblzma-dev openssl libssl-dev libkeyutils-dev libkrb5-dev comerr-dev libidn2-0-dev libcurl4-openssl-dev uuid-dev libffi-dev linux-kernel-headers"
 elif [ "${AUDITWHEEL_POLICY}" == "musllinux_1_1" ]; then
 	PACKAGE_MANAGER=apk

@@ -37,9 +37,9 @@ if [ "${AUDITWHEEL_POLICY}" == "manylinux_2_27" ] ; then
         update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 900 --slave /usr/bin/g++ g++ /usr/bin/g++-9
 fi
 
-export SCCACHE_VERSION=0.3.3
+export SCCACHE_VERSION=0.4.2
 curl -o /tmp/sccache.tar.gz \
-        -L "https://github.com/ajschmidt8/sccache/releases/download/v${SCCACHE_VERSION}/sccache-v${SCCACHE_VERSION}-${AUDITWHEEL_ARCH}-unknown-linux-musl.tar.gz" ;\
+        -L "https://github.com/mozilla/sccache/releases/download/v${SCCACHE_VERSION}/sccache-v${SCCACHE_VERSION}-${AUDITWHEEL_ARCH}-unknown-linux-musl.tar.gz" ;\
         tar -C /tmp -xvf /tmp/sccache.tar.gz ;\
         mv "/tmp/sccache-v${SCCACHE_VERSION}-${AUDITWHEEL_ARCH}-unknown-linux-musl/sccache" /usr/bin/sccache ;\
         chmod +x /usr/bin/sccache
